@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-
+import {now, Document} from "mongoose";
 @Schema()
 export class Track {
   @Prop()
@@ -29,6 +29,13 @@ export class Track {
 
   @Prop()
   artwork: string;
+
+  
+  @Prop({default: now()})
+  createdAt: Date;
+
+  @Prop({default: now()})
+  updatedAt: Date;
 }
 
 export const TrackSchema = SchemaFactory.createForClass(Track);
