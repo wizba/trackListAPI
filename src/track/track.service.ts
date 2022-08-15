@@ -8,7 +8,7 @@ import { Track } from './Schema/track.schema';
 export class TrackService {
   constructor(
     @InjectModel('Track') private readonly trackModel: Model<Track>,
-  ) { }
+  ) {}
 
   async findAll(): Promise<Track[]> {
     return await this.trackModel.find();
@@ -16,7 +16,6 @@ export class TrackService {
 
   // create a track
   async create(track: TrackDto): Promise<Track> {
-
     return await this.trackModel.create(track);
   }
 

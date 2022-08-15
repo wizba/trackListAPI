@@ -6,7 +6,6 @@ services:
       - 6379:6379
     volumes:
       - redis:/data
-
 volumes:
   redis:
     driver: local

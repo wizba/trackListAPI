@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
+import { PlayListDtoSwagger } from 'src/swagger/track.swagger';
 import { PlaylistService } from './playlist.service';
 import { PlayList } from './Schema/playlist.schema';
 
@@ -7,6 +17,7 @@ export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
 
   // create a playlist
+  @ApiBody({ type: PlayListDtoSwagger })
   @Post()
   async create(@Body() playlist: PlayList): Promise<PlayList> {
     return await this.playlistService.create(playlist);
@@ -14,6 +25,7 @@ export class PlaylistController {
 
   // find and update a playlist
   @Put(':id')
+  @ApiBody({ type: PlayListDtoSwagger })
   async update(
     @Param('id') id: string,
     @Body() playlist: PlayList,
@@ -23,6 +35,7 @@ export class PlaylistController {
 
   // add a track to playlist
   @Put(':id/tracks')
+  @ApiBody({ type: PlayListDtoSwagger })
   async addTrack(
     @Param('id') id: string,
     @Body() list: PlayList,
@@ -45,7 +58,7 @@ export class PlaylistController {
   }
 
   // delete track from playlist
-  @Put(':id/tracks/:trackId')
+  @Delete(':id/tracks/:trackId')
   async deleteTrack(
     @Param('id') id: string,
     @Param('trackId') trackId: string,
