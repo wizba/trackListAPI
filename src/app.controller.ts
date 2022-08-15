@@ -1,9 +1,17 @@
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+  UseInterceptors,
+  CacheInterceptor,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
-import { JwtAuthGuard } from './sercurity/jwt-auth.guard';
 import { Public } from './sercurity/metadata';
 
+@UseInterceptors(CacheInterceptor)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -20,7 +28,6 @@ export class AppController {
     return this.appService.login(req.user);
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

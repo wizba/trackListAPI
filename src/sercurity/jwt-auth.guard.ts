@@ -13,16 +13,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         super();
     }
   canActivate(context: ExecutionContext) {
-    // Add your custom authentication logic here
-    // for example, call super.logIn(request) to establish a session.
-
-    console.log(context.getHandler());
+    
     const isPublic = this.reflector.get<boolean>( "isPublic", context.getHandler() );
-    console.log(isPublic);
     if (isPublic) {
         return true;
     }
-    
+
     return super.canActivate(context);
   }
 

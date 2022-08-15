@@ -27,7 +27,6 @@ export class PlaylistController {
     @Param('id') id: string,
     @Body() list: PlayList,
   ): Promise<PlayList> {
-    console.log(list);
     return await this.playlistService.addTrack(id, list);
   }
 
